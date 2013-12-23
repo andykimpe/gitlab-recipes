@@ -76,7 +76,7 @@ mysqladmin -u root password "$password"
 mysql -u root -p$password -e "CREATE USER 'gitlab'@'localhost' IDENTIFIED BY '$gitlabpassword'";
 mysql -u root -p$password -e "CREATE DATABASE IF NOT EXISTS gitlabhq_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci";
 mysql -u root -p$password -e "GRANT SELECT, LOCK TABLES, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON gitlabhq_production.* TO gitlab@localhost";
-su git -c "git clone https://github.com/gitlabhq/gitlabhq.git gitlab"
+su git -c "cd /home/git/ && git clone https://github.com/gitlabhq/gitlabhq.git gitlab"
 su git -c "cd /home/git/gitlab && git checkout 6-3-stable && cp config/gitlab.yml.example config/gitlab.yml"
 su git -c "sed -i 's|localhost|$domain|g' /home/git/gitlab/config/gitlab.yml"
 su git -c "chown -R git /home/git/gitlab/log/"
