@@ -90,9 +90,9 @@ su git -c "chmod -R u+rwX /home/git/gitlab/tmp/sockets/"
 su git -c "mkdir /home/git/gitlab/public/uploads"
 su git -c "chmod -R u+rwX /home/git/gitlab/public/uploads"
 su git -c "cp /home/git/gitlab/config/unicorn.rb.example /home/git/gitlab/config/unicorn.rb"
-su git -c "git config --global user.name \"GitLab\""
-su git -c "git config --global user.email \"gitlab@$domain\""
-su git -c "git config --global core.autocrlf input"
+git config --global user.name "GitLab"
+git config --global user.email "gitlab@$domain"
+git config --global core.autocrlf input
 su git -c "cp /home/git/gitlab/config/database.yml.mysql /home/git/gitlab/config/database.yml"
 
 
