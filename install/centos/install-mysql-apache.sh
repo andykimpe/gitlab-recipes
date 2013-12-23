@@ -116,7 +116,7 @@ sed -i 's|    ProxyPassReverse http://gitlab.example.com/|    ProxyPassReverse h
 mkdir "/etc/httpd/conf.d.save"
 cp "/etc/httpd/conf.d/ssl.conf" "/etc/httpd/conf.d.save"
 cat > /etc/httpd/conf.d/ssl.conf <<EOF
-NameVirtualHost *:80
+#NameVirtualHost *:80
 <IfModule mod_ssl.c>
     # If you add NameVirtualHost *:443 here, you will also have to change
     # the VirtualHost statement in /etc/httpd/conf.d/gitlab.conf
