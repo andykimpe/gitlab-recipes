@@ -125,6 +125,7 @@ cat > /etc/httpd/conf.d/ssl.conf <<EOF
     Listen 443
 </IfModule>
 EOF
+touch /var/log/httpd/logs/gitlab.example.com_error.log
 service httpd restart
 lokkit -s http -s https -s ssh
 service iptables save
