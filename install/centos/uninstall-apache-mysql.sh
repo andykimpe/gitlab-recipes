@@ -15,3 +15,5 @@ userdel git
 rm -rf /home/git
 rm -f /root/.forward
 mysql -u root -p$password -e "DROP DATABASE gitlabhq_production";
+service redis stop
+yum -y remove redis
