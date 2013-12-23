@@ -51,13 +51,13 @@ chown -R vacation:vacation /var/spool/vacation
 useradd -r -u 101 -g mail -d /var/mail -s /sbin/nologin -c "Virtual mailbox" vmail
 service postfix start
 chkconfig postfix on
-mkdir /tmp/ruby && cd /tmp/ruby
-curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz
-cd ruby-2.0.0-p353
-./configure --prefix=/usr/local/
-make && make install
-cd
-rm -rf /tmp/ruby
+#mkdir /tmp/ruby && cd /tmp/ruby
+#curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz
+#cd ruby-2.0.0-p353
+#./configure --prefix=/usr/local/
+#make && make install
+#cd
+#rm -rf /tmp/ruby
 gem install bundler --no-ri --no-rdoc
 adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
 echo $email > /root/.forward
