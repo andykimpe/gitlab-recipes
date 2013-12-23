@@ -95,7 +95,7 @@ git config --global user.email "gitlab@$domain"
 git config --global core.autocrlf input
 su git -c "cp /home/git/gitlab/config/database.yml.mysql /home/git/gitlab/config/database.yml"
 su git -c "sed -i 's|  password: \"secure password\"|  password: \"$gitlabpassword\"|g' /home/git/gitlab/config/database.yml"
-
+su git -c "sed -i 's|  password:                   |  password: \"$gitlabpassword\"|g' /home/git/gitlab/config/database.yml"
 
 
 
