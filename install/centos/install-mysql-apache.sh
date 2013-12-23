@@ -1,4 +1,8 @@
 #!/bin/bash
+# Set custom logging methods so we create a log file in the current working directory.
+logfile=/var/log/gitlab-install-mysql-apache.log
+exec > >(tee $logfile)
+exec 2>&1
 passwordgen() {
          l=$1
            [ "$l" == "" ] && l=16
