@@ -8,9 +8,12 @@ passwordgen() {
            [ "$l" == "" ] && l=16
           tr -dc A-Za-z0-9 < /dev/urandom | head -c ${l} | xargs
 }
-genpassword=`passwordgen`;
 gitlabpassword=`passwordgen`;
-read -e -p "Enter root password of mysql: " -i $genpassword password
+if [ -f "/etc/init.d/mysqld" ] ; then
+read -e -p "Enter root password of mysql: " password
+else
+password=`passwordgen`;
+fi
 read -e -p "Enter domain or subdomain for gitlab: " domain
 read -e -p "Enter email address for send log file: " email
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
@@ -136,11 +139,13 @@ echo "user (email) admin@local.host" &>/dev/tty
 echo "password 5iveL!fe" &>/dev/tty
 echo "mysql user gitlab" &>/dev/tty
 echo "password for gitlabuser $gitlabpassword" &>/dev/tty
+echo "mysql root password $password" &>/dev/tty
 echo "information save in /root/gitlab-password.txt" &>/dev/tty
 echo url for gitlab http://"$domain" > /root/gitlab-password.txt
 echo url for user email "admin@local.host" >> /root/gitlab-password.txt
 echo password 5iveL!fe >> /root/gitlab-password.txt
 echo password for gitlabuser "$gitlabpassword" >> /root/gitlab-password.txt
+echo mysql root password "$password" > /root/gitlab-password.txt
 
 
 
