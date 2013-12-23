@@ -97,6 +97,57 @@ su git -c "cp /home/git/gitlab/config/database.yml.mysql /home/git/gitlab/config
 su git -c "sed -i 's|  password: \"secure password\"|  password:|g' /home/git/gitlab/config/database.yml"
 su git -c "sed -i 's|  password:|  password: \"$gitlabpassword\"|g' /home/git/gitlab/config/database.yml"
 su git -c "sed -i 's|  username: root|  username: gitlab|g' /home/git/gitlab/config/database.yml"
+su git -c "chmod o-rwx /home/git/gitlab/config/database.yml"
+gem install charlock_holmes --version '0.6.9.4'
+su git -c "cd /home/git/gitlab/ && bundle install --deployment --without development test postgres puma aws"
+su git -c "cd /home/git/gitlab/ && bundle exec rake gitlab:setup RAILS_ENV=production"
+wget -O /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init/sysvinit/centos/gitlab-unicorn
+chmod +x /etc/init.d/gitlab
+chkconfig --add gitlab
+chkconfig gitlab on
+su git -c "cd gitlab/ && bundle exec rake gitlab:env:info RAILS_ENV=production"
+service gitlab start
+su git -c "cd gitlab/ && bundle exec rake gitlab:check RAILS_ENV=production"
+yum -y install httpd mod_ssl
+chkconfig httpd on
+wget -O /etc/httpd/conf.d/gitlab.conf https://raw.github.com/gitlabhq/gitlab-recipes/master/web-server/apache/gitlab.conf
+sed -i 's|  ServerName gitlab.example.com|  ServerName $domain|g' /etc/httpd/conf.d/gitlab.conf
+sed -i 's|    ProxyPassReverse http://gitlab.example.com/|    ProxyPassReverse http://$domain/|g' /etc/httpd/conf.d/gitlab.conf
+mkdir "/etc/httpd/conf.d.save"
+cp "/etc/httpd/conf.d/ssl.conf" "/etc/httpd/conf.d.save"
+cat > /etc/httpd/conf.d/ssl.conf <<EOF
+NameVirtualHost *:80
+<IfModule mod_ssl.c>
+    # If you add NameVirtualHost *:443 here, you will also have to change
+    # the VirtualHost statement in /etc/httpd/conf.d/gitlab.conf
+    # to <VirtualHost *:443>
+    #NameVirtualHost *:443
+    Listen 443
+</IfModule>
+EOF
+service httpd restart
+lokkit -s http -s https -s ssh
+service iptables save
+service iptables restart
+echo "install fichier"
+echo "url for gitlab http://$domain" &>/dev/tty
+echo "user (email) admin@local.host" &>/dev/tty
+echo "password 5iveL!fe" &>/dev/tty
+echo "mysql user gitlab" &>/dev/tty
+echo "password for gitlabuser $gitlabpassword" &>/dev/tty
+echo "information save in /root/gitlab-password.txt" &>/dev/tty
+echo url for gitlab http://$domain > /root/gitlab-password.txt
+echo url for user (email) admin@local.host > /root/gitlab-password.txt
+echo password 5iveL!fe > /root/gitlab-password.txt
+echo password for gitlabuser $gitlabpassword" > /root/gitlab-password.txt
+
+
+
+
+
+
+
+
 
 
 
