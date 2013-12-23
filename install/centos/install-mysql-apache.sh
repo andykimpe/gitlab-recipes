@@ -71,7 +71,6 @@ su git -c "sed -i 's|gitlab_url: \"http://localhost/\"|gitlab_url: \"http://$dom
 su git -c "/home/git/gitlab-shell/bin/install"
 yum install -y mysql-server mysql-devel
 chkconfig mysqld on
-service mysqld stop
 mysqladmin -u root password "$password"
 mysql -u root -p$password -e "CREATE USER 'gitlab'@'localhost' IDENTIFIED BY '$gitlabpassword'";
 mysql -u root -p$password -e "CREATE DATABASE IF NOT EXISTS gitlabhq_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci";
