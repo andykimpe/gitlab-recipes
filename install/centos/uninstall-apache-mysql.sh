@@ -1,5 +1,5 @@
 #!/bin/bash
-read -e -p "Enter the public (external) server IP: " password
+read -e -p "Enter root password of mysql: " password
 rm -f /etc/yum.repos.d/PUIAS_6_computational.repo
 service gitlab stop
 rm -f /etc/init.d/gitlab
