@@ -137,7 +137,7 @@ echo "mysql user gitlab" &>/dev/tty
 echo "password for gitlabuser $gitlabpassword" &>/dev/tty
 echo "information save in /root/gitlab-password.txt" &>/dev/tty
 echo url for gitlab http://"$domain" > /root/gitlab-password.txt
-echo url for user (email) admin@local.host >> /root/gitlab-password.txt
+echo url for user (email) "admin@local.host" >> /root/gitlab-password.txt
 echo password 5iveL!fe >> /root/gitlab-password.txt
 echo password for gitlabuser "$gitlabpassword" >> /root/gitlab-password.txt
 
