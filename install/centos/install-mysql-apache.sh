@@ -43,7 +43,7 @@ chmod -R 770 /var/spool/vacation
 chown -R vacation:vacation /var/spool/vacation
 useradd -r -u 101 -g mail -d /var/mail -s /sbin/nologin -c "Virtual mailbox" vmail
 service postfix start
-chkfig postfix on
+chkconfig postfix on
 mkdir /tmp/ruby && cd /tmp/ruby
 curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz
 cd ruby-2.0.0-p353
