@@ -21,7 +21,7 @@ yum -y remove bind-chroot
 wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 https://www.fedoraproject.org/static/0608B895.txt
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 yum -y install http://dl.fedoraproject.org/pub/epel/6/$(uname -m)/epel-release-6-8.noarch.rpm
-cat /etc/yum.repos.d/PUIAS_6_computational.repo <<EOF
+cat > /etc/yum.repos.d/PUIAS_6_computational.repo <<EOF
 [PUIAS_6_computational]
 name=PUIAS computational Base $releasever - $basearch
 mirrorlist=http://puias.math.ias.edu/data/puias/computational/$releasever/$basearch/mirrorlist
