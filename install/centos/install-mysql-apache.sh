@@ -69,6 +69,10 @@ gpgcheck=0
 EOF
 echo "install ruby 2.0"
 yum -y install ruby ruby-devel ruby-libs rubygem
+rm -f /usr/local/bin/ruby
+ln -s /usr/bin/ruby /usr/local/bin/ruby
+rm -f /usr/local/bin/gem
+ln -s /usr/bin/gem /usr/local/bin/gem
 gem install bundler --no-ri --no-rdoc
 adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
 echo $email > /root/.forward
