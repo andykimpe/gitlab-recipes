@@ -51,6 +51,9 @@ chown -R vacation:vacation /var/spool/vacation
 useradd -r -u 101 -g mail -d /var/mail -s /sbin/nologin -c "Virtual mailbox" vmail
 service postfix start
 chkconfig postfix on
+echo "remove old ruby"
+yum -y remove ruby ruby-devel ruby-libs rubygem
+echo "install ruby repo"
 #mkdir /tmp/ruby && cd /tmp/ruby
 #curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz
 #cd ruby-2.0.0-p353
@@ -58,6 +61,14 @@ chkconfig postfix on
 #make && make install
 #cd
 #rm -rf /tmp/ruby
+cat > "/etc/yum.repos.d/ruby.repo" <<EOF
+[RUBY_2_0_0_centos_6]
+name=RUBY centos Base \$releasever - \$basearch
+baseurl=ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/aredridel/CentOS_CentOS-\$releasever/
+gpgcheck=0
+EOF
+echo "install ruby 2.0"
+yum -y install ruby ruby-devel ruby-libs rubygem
 gem install bundler --no-ri --no-rdoc
 adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
 echo $email > /root/.forward
