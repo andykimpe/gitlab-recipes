@@ -51,8 +51,6 @@ chown -R vacation:vacation /var/spool/vacation
 useradd -r -u 101 -g mail -d /var/mail -s /sbin/nologin -c "Virtual mailbox" vmail
 service postfix start
 chkconfig postfix on
-echo "remove old ruby"
-yum -y remove ruby ruby-devel ruby-libs rubygem
 echo "install ruby repo"
 #mkdir /tmp/ruby && cd /tmp/ruby
 #curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz
@@ -68,6 +66,7 @@ baseurl=ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/
 gpgcheck=0
 EOF
 echo "install ruby 2.0"
+yum -y update
 yum -y install ruby ruby-devel ruby-libs rubygem
 rm -f /usr/local/bin/ruby
 ln -s /usr/bin/ruby /usr/local/bin/ruby
