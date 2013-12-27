@@ -101,8 +101,8 @@ mysql -u root -p$password -e "CREATE DATABASE IF NOT EXISTS gitlabhq_production 
 mysql -u root -p$password -e "GRANT SELECT, LOCK TABLES, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON gitlabhq_production.* TO gitlab@localhost";
 su git -c "cd /home/git/ && git clone https://github.com/gitlabhq/gitlabhq.git gitlab"
 su git -c "cd /home/git/gitlab && git checkout 6-3-stable  && cp config/gitlab.yml.example config/gitlab.yml"
-su git -c "sed -i 's|email_from: gitlab@localhost|email_from: $gitlabemail|g' /home/git/gitlab/config/gitlab.yml"
-su git -c "sed -i 's|support_email: support@localhost|support_email: $supportemail|g' /home/git/gitlab/config/gitlab.yml"
+su git -c "sed -i 's|email_from: gitlab@localhost|email_from: $emailgitlab|g' /home/git/gitlab/config/gitlab.yml"
+su git -c "sed -i 's|support_email: support@localhost|support_email: $emailsupport|g' /home/git/gitlab/config/gitlab.yml"
 su git -c "sed -i 's|localhost|$subdomain|g' /home/git/gitlab/config/gitlab.yml"
 su git -c "chown -R git /home/git/gitlab/log/"
 su git -c "chown -R git /home/git/gitlab/tmp/"
