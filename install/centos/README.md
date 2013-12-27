@@ -205,7 +205,7 @@ Download and compile it:
     cd ruby-2.0.0-p353
     ./configure --prefix=/usr/local/
     make
-    sudo checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldoc=yes --deldesc=yes -R make install
+    sudo checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldesc=yes -R make install
     
     and validate default option
     
