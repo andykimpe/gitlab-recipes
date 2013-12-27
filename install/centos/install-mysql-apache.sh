@@ -319,7 +319,7 @@ test:
 
 staging:
   <<: *base
-'
+EOF'
 su git -c "chown -R git /home/git/gitlab/log/"
 su git -c "chown -R git /home/git/gitlab/tmp/"
 su git -c "chmod -R u+rwX /home/git/gitlab/log/"
