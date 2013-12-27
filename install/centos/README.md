@@ -180,7 +180,7 @@ Now enable these settings:
 Alternatively you can install `postfix`.
 
 ----------
-2.0 checkinstall
+## 2.0 checkinstall
 
 install checkinstall for auto create rpm for ruby
 
@@ -195,7 +195,7 @@ rm -rf /tmp/checkinstall
 
 
 
-## 2. Ruby
+## 2.1 Ruby
 Download and compile it:
 
     mkdir /tmp/ruby && cd /tmp/ruby
