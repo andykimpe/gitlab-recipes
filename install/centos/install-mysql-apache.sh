@@ -64,6 +64,7 @@ sudo git clone http://checkinstall.izto.org/checkinstall.git
 cd checkinstall
 sudo make
 sudo make install
+sudo rm -rf ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 sudo mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 # Download and compile it:
 echo "echo compilling ruby"
@@ -73,7 +74,7 @@ cd ruby-2.0.0-p353
 ./configure --prefix=/usr/local/
 sudo make
 echo "checkinstall ruby please validate default option"
-sudo checkinstall -R make install
+sudo /usr/local/sbin/checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldoc=yes --deldesc=yes -R make install
 cd
 sudo rm -rf /tmp/checkinstall
 sudo rm -rf /tmp/ruby
