@@ -65,8 +65,8 @@ baseurl=ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/
 gpgcheck=0
 EOF
 echo "install ruby 2.0"
-yum -y update
 yum -y install ruby ruby-devel ruby-libs rubygem
+rm -f /etc/yum.repos.d/ruby.repo
 rm -f /usr/local/bin/ruby
 ln -s /usr/bin/ruby /usr/local/bin/ruby
 rm -f /usr/local/bin/gem
