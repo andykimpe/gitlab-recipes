@@ -7,7 +7,7 @@ if [ $UID -ne 0 ]; then
 echo "Installed failed! To install you must be logged in as 'root', please try again"
   exit 1
 fi
-echo ok
+echo $UID
 exit
 # Lets check for some common control panels that we know will affect the installation/operating of Gitalb.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] || [ -e /opt/ovz-web-panel/ ] ; then
