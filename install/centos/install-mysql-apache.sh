@@ -57,7 +57,6 @@ read -s -p "Enter Your mysql root Password: " password
 done
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 setenforce 0
-exit
 chkconfig sendmail off
 service sendmail stop
 yum -y remove bind-chroot
