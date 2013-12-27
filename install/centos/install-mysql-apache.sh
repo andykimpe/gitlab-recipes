@@ -40,6 +40,7 @@ EOF
 rpm --import http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
 yum-config-manager --enable epel --enable PUIAS_6_computational
 yum -y update
+yum -y remove ruby ruby-devel ruby-libs rubygem
 yum -y groupinstall 'Development Tools'
 yum -y install vim-enhanced readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-devel openssl-devel curl-devel expat-devel db4-devel byacc sqlite-devel gcc-c++ libyaml libyaml-devel libffi libffi-devel libxml2 libxml2-devel libxslt libxslt-devel libicu libicu-devel system-config-firewall-tui python-devel redis sudo wget crontabs logwatch logrotate perl-Time-HiRes git
 yum-config-manager --enable rhel-6-server-optional-rpms
@@ -57,27 +58,14 @@ service postfix start
 service postfix restart
 chkconfig postfix on
 yum -y install postgresql-server postgresql-devel mysql mysql-server
-echo "install ruby repo"
-#mkdir /tmp/ruby && cd /tmp/ruby
-#curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz
-#cd ruby-2.0.0-p353
-#./configure --prefix=/usr/local/
-#make && make install
-#cd
-#rm -rf /tmp/ruby
-cat > "/etc/yum.repos.d/ruby.repo" <<EOF
-[RUBY_2_0_0_centos_6]
-name=RUBY centos Base \$releasever - \$basearch
-baseurl=ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/aredridel/CentOS_CentOS-\$releasever/
-enabled=0
-gpgcheck=0
-EOF
-echo "install ruby 2.0"
-yum --disablerepo=\* --enablerepo=RUBY_2_0_0_centos_6 -y install ruby ruby-devel ruby-libs rubygem
-rm -f /usr/local/bin/ruby
-ln -s /usr/bin/ruby /usr/local/bin/ruby
-rm -f /usr/local/bin/gem
-ln -s /usr/bin/gem /usr/local/bin/gem
+echo "install ruby"
+mkdir /tmp/ruby && cd /tmp/ruby
+curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz
+cd ruby-2.0.0-p353
+./configure --prefix=/usr/local/
+make && make install
+cd
+rm -rf /tmp/ruby
 gem install bundler --no-ri --no-rdoc
 adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
 echo $emaillog > /root/.forward
