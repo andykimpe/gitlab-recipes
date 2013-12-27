@@ -571,16 +571,16 @@ su -
 yum -y install httpd mod_ssl
 chkconfig httpd on
 wget -O /etc/httpd/conf.d/gitlab.conf https://raw.github.com/gitlabhq/gitlab-recipes/master/web-server/apache/gitlab.conf
+mkdir -p /var/log/httpd/logs/
 ```
 
 Open `/etc/httpd/conf.d/gitlab.conf` with your editor and replace `git.example.org` with your FQDN.
 
 Add `LoadModule ssl_module /etc/httpd/modules/mod_ssl.so` in `/etc/httpd/conf/httpd.conf`
 
-If you want to run other websites on the same system, you'll need to add in `/etc/httpd/conf/httpd.conf`:
+If you want to run other websites on the same system, you'll need to add in `/etc/httpd/conf.d/ssl.conf`:
 
 ```
-NameVirtualHost *:80
 <IfModule mod_ssl.c>
     # If you add NameVirtualHost *:443 here, you will also have to change
     # the VirtualHost statement in /etc/httpd/conf.d/gitlab.conf
