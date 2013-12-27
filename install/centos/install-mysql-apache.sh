@@ -3,7 +3,7 @@
 logfile=/var/log/gitlab-install-mysql-apache.log
 exec > >(tee $logfile)
 exec 2>&1
-if [ $UID -ne 0 ]; then
+if [ $USER -ne root ]; then
 echo "Installed failed! To install you must be logged in as 'root', please try again"
   exit 1
 fi
