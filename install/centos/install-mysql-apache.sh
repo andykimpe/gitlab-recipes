@@ -117,7 +117,7 @@ su git -c "mkdir /home/git/gitlab/public/uploads"
 su git -c "chmod -R u+rwX /home/git/gitlab/public/uploads"
 su git -c "cp /home/git/gitlab/config/unicorn.rb.example /home/git/gitlab/config/unicorn.rb"
 git config --global user.name "GitLab"
-git config --global user.email "gitlab@$domain"
+git config --global user.email "$emailgitlab"
 git config --global core.autocrlf input
 su git -c "cp /home/git/gitlab/config/database.yml.mysql /home/git/gitlab/config/database.yml"
 su git -c "sed -i 's|  password: \"secure password\"|  password:|g' /home/git/gitlab/config/database.yml"
