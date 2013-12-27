@@ -446,6 +446,12 @@ Make config/database.yml readable to git only
 
     su -
     gem install charlock_holmes --version '0.6.9.4'
+    gem install json -v '1.7.7'
+    # reason bundle install --deployment --without development test mysql puma aws
+    # bundle 
+    # Bundler::GemNotFound: Could not find json-1.7.7.gem for installation
+    # An error occurred while installing json (1.7.7), and Bundler cannot continue.
+    #  Make sure that `gem install json -v '1.7.7'` succeeds before bundling.
     exit
 
 For MySQL (note, the option says "without ... postgres"):
