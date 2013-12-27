@@ -274,6 +274,11 @@ Install `mysql` and enable the `mysqld` service to start on boot:
 
     su -
     yum install -y mysql-server mysql-devel
+    yum install postgresql-server postgresql-devel
+    # reason gem install pg -v '0.15.1'
+    # Gem files will remain installed in /usr/local/lib/ruby/gems/2.0.0/gems/pg-0.15.1 for inspection.
+    # Results logged to /usr/local/lib/ruby/gems/2.0.0/gems/pg-0.15.1/ext/gem_make.out
+    
     chkconfig mysqld on
     service mysqld start
 
