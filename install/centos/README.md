@@ -184,14 +184,14 @@ Alternatively you can install `postfix`.
 
 install checkinstall for auto create rpm for ruby
 
-cd /tmp
-git clone http://checkinstall.izto.org/checkinstall.git
-cd checkinstall
-make
-sudo make install
-mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-cd
-rm -rf /tmp/checkinstall
+         cd /tmp
+         git clone http://checkinstall.izto.org/checkinstall.git
+         cd checkinstall
+         make
+         sudo make install
+         mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+         cd
+         rm -rf /tmp/checkinstall
 
 
 
@@ -209,7 +209,7 @@ Download and compile it:
     
     install ruby
     
-    sudo rpm -i ~/rpmbuild/RPMS/$(uname -m)/ruby-2.0.0-p353-1.$(uname -m).rpm
+    sudo yum -y install ~/rpmbuild/RPMS/$(uname -m)/ruby-2.0.0-p353-1.$(uname -m).rpm
     
     ruby uninstall
     
