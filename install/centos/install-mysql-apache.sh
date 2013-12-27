@@ -3,12 +3,9 @@
 logfile=/var/log/gitlab-install-mysql-apache.log
 exec > >(tee $logfile)
 exec 2>&1
-if [ $USER != root ]; then
+if [ $USER -ne 0 ]; then
 echo "Installed failed! To install you must be logged in as 'root', please try again"
 exit 1
-else
-echo $USER
-exit 0
 fi
 # Lets check for some common control panels that we know will affect the installation/operating of Gitalb.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] || [ -e /opt/ovz-web-panel/ ] ; then
