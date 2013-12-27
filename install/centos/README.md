@@ -213,7 +213,7 @@ Download and compile it:
     
     ruby uninstall
     
-    yum -y remove ruby
+    yum -y remove ruby-2.0.0
     
     
 
