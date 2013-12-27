@@ -83,7 +83,7 @@ chmod 600 /home/git/.forward
 restorecon /home/git/.forward
 su git -c "cd /home/git/ && git clone https://github.com/gitlabhq/gitlab-shell.git"
 su git -c "cd /home/git/gitlab-shell && git checkout v1.8.0 && cp config.yml.example config.yml"
-su git -c "sed -i 's|gitlab_url: \"http://localhost/\"|gitlab_url: \"http://$domain/\"|' /home/git/gitlab-shell/config.yml"
+su git -c "sed -i 's|gitlab_url: \"http://localhost/\"|gitlab_url: \"http://localhost:8080/\"|' /home/git/gitlab-shell/config.yml"
 su git -c "/home/git/gitlab-shell/bin/install"
 yum install -y mysql-server mysql-devel
 chkconfig mysqld on
