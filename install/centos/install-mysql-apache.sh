@@ -70,7 +70,7 @@ sudo mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 echo "echo compilling ruby"
 sudo mkdir /tmp/ruby && cd /tmp/ruby
 sudo wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz
-sudo tar xz ruby-2.0.0-p353.tar.gz
+tar xz ruby-2.0.0-p353.tar.gz
 cd ruby-2.0.0-p353
 ./configure --prefix=/usr/local/
 sudo make
