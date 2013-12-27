@@ -189,6 +189,7 @@ install checkinstall for auto create rpm for ruby
          cd checkinstall
          make
          sudo make install
+         sudo ln -s /usr/local/bin/checkinstall /usr/bin/checkinstall
          sudo rm -rf ~/rpmbuild/
          sudo mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
          cd
@@ -204,13 +205,15 @@ Download and compile it:
     cd ruby-2.0.0-p353
     ./configure --prefix=/usr/local/
     make
-    sudo /usr/local/sbin/checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldoc=yes --deldesc=yes -R make install
+    sudo checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldoc=yes --deldesc=yes -R make install
     
     and validate default option
     
     install ruby
     
     sudo yum -y install ~/rpmbuild/RPMS/$(uname -m)/*.rpm
+    sudo ln -s /usr/local/bin/ruby /usr/bin/ruby
+    sudo ln -s /usr/local/bin/gem /usr/bin/gem
     
     ruby uninstall
     
@@ -229,6 +232,7 @@ installed with:
 Install the Bundler Gem:
 
      sudo gem install bundler --no-ri --no-rdoc
+     sudo ln -s /usr/local/bin/bundler /usr/bin/bundler
 
 **NOTE:** If you get an error like `sudo: gem: command not found`, it is because
 CentOS has sudo built with the `--with-secure-path` flag. See this post on [stackoverflow][sudo]
