@@ -176,7 +176,7 @@ sed -i 's|  ServerName gitlab.example.com|  ServerName $subdomain|g' /etc/httpd/
 sed -i 's|    ProxyPassReverse http://gitlab.example.com/|    ProxyPassReverse http://$subdomain/|g' /etc/httpd/conf.d/gitlab.conf
 mkdir "/etc/httpd/conf.d.save"
 cp "/etc/httpd/conf.d/ssl.conf" "/etc/httpd/conf.d.save"
-su -c 'cat > /etc/httpd/conf.d/ssl.conf <<EOF
+cat > /etc/httpd/conf.d/ssl.conf <<EOF
 #NameVirtualHost *:80
 <IfModule mod_ssl.c>
     # If you add NameVirtualHost *:443 here, you will also have to change
@@ -185,11 +185,12 @@ su -c 'cat > /etc/httpd/conf.d/ssl.conf <<EOF
     #NameVirtualHost *:443
     Listen 443
 </IfModule>
-EOF'
+EOF
 mkdir -p /var/log/httpd/logs/
 service httpd restart
 service iptables save
 service iptables stop
+chkconfig iptables off
 echo "install file"
 echo "url for gitlab http://$subdomain" &>/dev/tty
 echo "user (email) admin@local.host" &>/dev/tty
