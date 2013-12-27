@@ -132,15 +132,15 @@ sudo gem install charlock_holmes --version '0.6.9.4'
 sudo gem install json -v '1.7.7'
 sudo gem install pg -v '0.15.1'
 sudo gem install therubyracer -v '0.11.4'
-sudo su git -c "cd /home/git/gitlab/ && bundle install --deployment --without development test mysql puma aws"
-sudo su git -c "cd /home/git/gitlab/ && bundle exec rake gitlab:setup RAILS_ENV=production"
+sudo su git -c "cd /home/git/gitlab/ && /usr/local/bin/bundle install --deployment --without development test mysql puma aws"
+sudo su git -c "cd /home/git/gitlab/ && /usr/local/bin/bundle exec rake gitlab:setup RAILS_ENV=production"
 sudo wget -O /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init/sysvinit/centos/gitlab-unicorn
 sudo chmod +x /etc/init.d/gitlab
 sudo chkconfig --add gitlab
 sudo chkconfig gitlab on
-sudo su git -c "cd gitlab/ && bundle exec rake gitlab:env:info RAILS_ENV=production"
+sudo su git -c "cd gitlab/ && /usr/local/bin/bundle exec rake gitlab:env:info RAILS_ENV=production"
 sudo service gitlab start
-sudo su git -c "cd gitlab/ && bundle exec rake gitlab:check RAILS_ENV=production"
+sudo su git -c "cd gitlab/ && /usr/local/bin/bundle exec rake gitlab:check RAILS_ENV=production"
 sudo yum -y install httpd mod_ssl
 sudo chkconfig httpd on
 sudo wget -O /etc/httpd/conf.d/gitlab.conf https://raw.github.com/gitlabhq/gitlab-recipes/master/web-server/apache/gitlab.conf
