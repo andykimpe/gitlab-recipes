@@ -203,7 +203,7 @@ Download and compile it:
     cd ruby-2.0.0-p353
     ./configure --prefix=/usr/local/
     make
-    sudo checkinstall -R make install
+    checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldoc=yes --deldesc=yes -R make install
     
     and validate default option
     
@@ -213,7 +213,7 @@ Download and compile it:
     
     ruby uninstall
     
-    sudo yum -y remove ruby-2.0.0
+    sudo yum -y remove ruby
     
     
 
