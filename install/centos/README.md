@@ -180,16 +180,42 @@ Now enable these settings:
 Alternatively you can install `postfix`.
 
 ----------
+2.0 checkinstall
+
+install checkinstall for auto create rpm for ruby
+
+cd /tmp
+git clone http://checkinstall.izto.org/checkinstall.git
+cd checkinstall
+make
+sudo make install
+mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+cd
+rm -rf /tmp/checkinstall
+
+
 
 ## 2. Ruby
 Download and compile it:
 
-    su -
     mkdir /tmp/ruby && cd /tmp/ruby
     curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz | tar xz
     cd ruby-2.0.0-p353
     ./configure --prefix=/usr/local/
-    make && make install
+    make
+    checkinstall -R make install
+    
+    and validate default option
+    
+    install ruby
+    
+    sudo rpm -i ~/rpmbuild/RPMS/$(uname -m)/ruby-2.0.0-p353-1.$(uname -m).rpm
+    
+    ruby uninstall
+    
+    yum -y remove ruby
+    
+    
 
 Logout and login again for the `$PATH` to take effect. Check that ruby is properly
 installed with:
