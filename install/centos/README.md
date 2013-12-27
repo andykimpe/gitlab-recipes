@@ -72,19 +72,16 @@ As part of the Fedora packaging community, EPEL packages are 100% free/libre ope
 
 Download the GPG key for EPEL repository from [fedoraproject][keys] and install it on your system:
 
-    sudo wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 https://www.fedoraproject.org/static/0608B895.txt
-    sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+    rpm --import https://www.fedoraproject.org/static/0608B895.txt
 
 Verify that the key got installed successfully:
 
-    sudo rpm -qa gpg*
+    rpm -qa gpg*
     gpg-pubkey-0608b895-4bd22942
 
 Now install the `epel-release-6-8.noarch` package, which will enable EPEL repository on your system:
 
-    sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-
-**Note:** Don't mind the `x86_64`, if you install on a i686 system you can use the same commands.
+    yum -y install http://dl.fedoraproject.org/pub/epel/6/$(uname -m)/epel-release-6-8.noarch.rpm
 
 ### Add PUIAS Computational repository
 
@@ -107,17 +104,16 @@ Create /etc/yum.repos.d/PUIAS_6_computational.repo and add the following lines:
 
 Next download and install the gpg key.
 
-    sudo wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-puias http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
-    sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-puias
+    rpm --import http://springdale.math.ias.edu/data/puias/6/$(uname-m)/os/RPM-GPG-KEY-puias
 
 Verify that the key got installed successfully:
 
-    sudo rpm -qa gpg*
+    rpm -qa gpg*
     gpg-pubkey-41a40948-4ce19266
 
 Verify that the EPEL and PUIAS Computational repositories are enabled as shown below:
 
-    sudo yum repolist
+    yum repolist
     repo id                 repo name                                                status
     PUIAS_6_computational   PUIAS computational Base 6 - x86_64                      2,018
     base                    CentOS-6 - Base                                          4,802
@@ -128,7 +124,7 @@ Verify that the EPEL and PUIAS Computational repositories are enabled as shown b
 
 If you can't see them listed, use the folowing command (from yum-utils package) to enable them:
 
-    sudo yum-config-manager --enable epel --enable PUIAS_6_computational
+    yum-config-manager --enable epel --enable PUIAS_6_computational
 
 ### Install the required tools for GitLab
 
@@ -188,10 +184,9 @@ install checkinstall for auto create rpm for ruby
          git clone http://checkinstall.izto.org/checkinstall.git
          cd checkinstall
          make
-         sudo make install
-         sudo ln -s /usr/local/bin/checkinstall /usr/bin/checkinstall
-         sudo rm -rf ~/rpmbuild/
-         sudo mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+         make install
+         rm -rf ~/rpmbuild/
+         mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
          cd
          rm -rf /tmp/checkinstall
 
@@ -205,19 +200,17 @@ Download and compile it:
     cd ruby-2.0.0-p353
     ./configure --prefix=/usr/local/
     make
-    sudo checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldesc=yes -R make install
+    checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldesc=yes -R make install
     
     and validate default option
     
     install ruby
     
-    sudo yum -y install ~/rpmbuild/RPMS/$(uname -m)/*.rpm
-    sudo ln -s /usr/local/bin/ruby /usr/bin/ruby
-    sudo ln -s /usr/local/bin/gem /usr/bin/gem
+    yum -y install ~/rpmbuild/RPMS/$(uname -m)/*.rpm
     
     ruby uninstall
     
-    sudo yum -y remove ruby
+    yum -y remove ruby
     
     
 
@@ -231,9 +224,8 @@ installed with:
 
 Install the Bundler Gem:
 
-     sudo gem install bundler --no-ri --no-rdoc
-     sudo ln -s /usr/local/bin/bundler /usr/bin/bundler
-
+     gem install bundler --no-ri --no-rdoc
+     
 **NOTE:** If you get an error like `sudo: gem: command not found`, it is because
 CentOS has sudo built with the `--with-secure-path` flag. See this post on [stackoverflow][sudo]
 on how to deal with it. Alternatively, login as root and run the command.
