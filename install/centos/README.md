@@ -463,13 +463,6 @@ Make config/database.yml readable to git only
     # Results logged to /home/git/gitlab/vendor/bundle/ruby/2.0.0/gems/pg-0.15.1/ext/gem_make.out
     # An error occurred while installing pg (0.15.1), and Bundler cannot continue.
     # Make sure that `gem install pg -v '0.15.1'` succeeds before bundling.
-    gem install therubyracer -v '0.11.4'
-    # reason bundle install --deployment --without development test mysql puma aws
-    # Gem files will remain installed in /home/git/gitlab/vendor/bundle/ruby/gems/therubyracer-0.11.4 for  inspection.
-    # Results logged to /home/git/gitlab/vendor/bundle/ruby/gems/therubyracer-0.11.4/ext/v8/gem_make.out
-    #  An error occurred while installing therubyracer (0.11.4), and Bundler cannot
-    # continue.
-    # Make sure that `gem install therubyracer -v '0.11.4'` succeeds before bundling.
     exit
 
 For MySQL (note, the option says "without ... postgres"):
