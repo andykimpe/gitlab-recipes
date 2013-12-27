@@ -3,16 +3,50 @@
 logfile=/var/log/gitlab-install-mysql-apache.log
 exec > >(tee $logfile)
 exec 2>&1
+if [ $UID -ne 0 ]; then
+echo "Installed failed! To install you must be logged in as 'root', please try again"
+  exit 1
+fi
+echo ok
+exit
+# Lets check for some common control panels that we know will affect the installation/operating of Gitalb.
+if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] || [ -e /opt/ovz-web-panel/ ] ; then
+echo "You appear to have a control panel already installed on your server; This installer"
+echo "is designed to install and configure ZPanel on a clean OS installation only!"
+echo ""
+echo "Please re-install your OS before attempting to install using this script."
+exit
+fi
+
+# Ensure the installer is launched and can only be launched on CentOs 6.4
+BITS=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
+if [ -f /etc/centos-release ]; then
+OS="CentOs"
+VER=$(cat /etc/centos-release | sed 's/^.*release //;s/ (Fin.*$//')
+else
+OS=$(uname -s)
+VER=$(uname -r)
+fi
+echo "Detected : $OS $VER $BITS"
+#warning the last version of centos and 6.5
+if [ "$OS" = "CentOs" ] && [ "$VER" = "6.4" ] || [ "$VER" = "6.5" ] ; then
+echo "Ok."
+else
+echo "Sorry, this installer only supports the installation of Gitalb on CentOS 6.5."
+exit 1;
+fi
 passwordgen() {
          l=$1
            [ "$l" == "" ] && l=16
           tr -dc A-Za-z0-9 < /dev/urandom | head -c ${l} | xargs
 }
-gitlabpassword=`passwordgen`;
+gitlabpassword=`passwordgen`
 if [ -f "/etc/init.d/mysqld" ] ; then
 read -e -p "Enter root password of mysql: " password
+mysqlinstall=yes
 else
 password=`passwordgen`;
+mysqlinstall=no
 fi
 echo -e "Enter subdomain for gitlab"
 echo -e "eg : gitlab.yourdomain"
@@ -20,10 +54,10 @@ read -e -p "Enter subdomain for gitlab : " subdomain
 read -e -p "Enter email address for send log file : " emaillog
 read -e -p "Enter email address for support : " emailsupport
 read -e -p "Enter principal email address for gitlab : " emailgitlab
-sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
-sudo setenforce 0
-sudo chkconfig sendmail off
-sudo service sendmail stop
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+setenforce 0
+chkconfig sendmail off
+service sendmail stop
 sudo yum -y remove bind-chroot
 sudo rpm --import https://www.fedoraproject.org/static/0608B895.txt
 sudo yum -y install http://dl.fedoraproject.org/pub/epel/6/$(uname -m)/epel-release-6-8.noarch.rpm
@@ -84,7 +118,7 @@ sudo yum -y install ~/rpmbuild/RPMS/$(uname -m)/*.rpm
 sudo ln -s /usr/local/bin/gem /usr/bin/gem
 sudo ln -s /usr/local/bin/ruby /usr/bin/ruby
 sudo gem install bundler --no-ri --no-rdoc
-sudo ln -s /usr/local/bin/bundler /usr/bin/bundler
+sudo ln -s /usr/local/bin/bundle /usr/bin/bundle
 sudo adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
 sudo echo $emaillog > /root/.forward
 sudo chown root /root/.forward
@@ -101,7 +135,9 @@ sudo su git -c "/home/git/gitlab-shell/bin/install"
 sudo service mysqld start
 sudo service mysqld restart
 sudo chkconfig mysqld on
-sudo mysqladmin -u root password "$password"
+if [ "$mysqlinstall" = "no" ] ;then
+mysqladmin -u root password "$password"
+fi
 sudo mysql -u root -p$password -e "CREATE USER 'gitlab'@'localhost' IDENTIFIED BY '$gitlabpassword'";
 sudo mysql -u root -p$password -e "CREATE DATABASE IF NOT EXISTS gitlabhq_production DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci";
 sudo mysql -u root -p$password -e "GRANT SELECT, LOCK TABLES, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON gitlabhq_production.* TO gitlab@localhost";
