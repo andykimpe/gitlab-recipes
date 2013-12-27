@@ -5,10 +5,11 @@ exec > >(tee $logfile)
 exec 2>&1
 if [ $USER != root ]; then
 echo "Installed failed! To install you must be logged in as 'root', please try again"
-  exit 1
+exit 1
+else
+echo $USER
+exit 0
 fi
-echo $UID
-exit
 # Lets check for some common control panels that we know will affect the installation/operating of Gitalb.
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] || [ -e /opt/ovz-web-panel/ ] ; then
 echo "You appear to have a control panel already installed on your server; This installer"
