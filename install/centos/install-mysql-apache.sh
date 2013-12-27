@@ -64,6 +64,7 @@ sudo git clone http://checkinstall.izto.org/checkinstall.git
 cd checkinstall
 sudo make
 sudo make install
+sudo ln -s /usr/local/bin/checkinstall /usr/bin/checkinstall
 sudo rm -rf ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 sudo mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 # Download and compile it:
@@ -74,13 +75,16 @@ cd ruby-2.0.0-p353
 ./configure --prefix=/usr/local/
 sudo make
 echo "checkinstall ruby please validate default option"
-sudo /usr/local/sbin/checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldoc=yes --deldesc=yes -R make install
+sudo checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldoc=yes --deldesc=yes -R make install
 cd
 sudo rm -rf /tmp/checkinstall
 sudo rm -rf /tmp/ruby
 echo "install ruby"
 sudo yum -y install ~/rpmbuild/RPMS/$(uname -m)/*.rpm
+sudo ln -s /usr/local/bin/gem /usr/bin/gem
+sudo ln -s /usr/local/bin/ruby /usr/bin/ruby
 sudo gem install bundler --no-ri --no-rdoc
+sudo ln -s /usr/local/bin/bundler /usr/bin/bundler
 sudo adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
 sudo echo $emaillog > /root/.forward
 sudo chown root /root/.forward
