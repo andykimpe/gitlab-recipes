@@ -21,8 +21,7 @@ setenforce 0
 chkconfig sendmail off
 service sendmail stop
 yum -y remove bind-chroot
-wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 https://www.fedoraproject.org/static/0608B895.txt
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+rpm --import https://www.fedoraproject.org/static/0608B895.txt
 yum -y install http://dl.fedoraproject.org/pub/epel/6/$(uname -m)/epel-release-6-8.noarch.rpm
 cat > "/etc/yum.repos.d/PUIAS_6_computational.repo" <<EOF
 [PUIAS_6_computational]
@@ -32,8 +31,7 @@ mirrorlist=http://puias.math.ias.edu/data/puias/computational/\$releasever/\$bas
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puias
 EOF
-wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-puias http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-puias
+rpm --import http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
 yum-config-manager --enable epel --enable PUIAS_6_computational
 yum -y update
 yum -y groupinstall 'Development Tools'
