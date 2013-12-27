@@ -28,6 +28,7 @@ cat > "/etc/yum.repos.d/PUIAS_6_computational.repo" <<EOF
 name=PUIAS computational Base \$releasever - \$basearch
 mirrorlist=http://puias.math.ias.edu/data/puias/computational/\$releasever/\$basearch/mirrorlist
 #baseurl=http://puias.math.ias.edu/data/puias/computational/$releasever/$basearch
+enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puias
 EOF
@@ -63,11 +64,11 @@ cat > "/etc/yum.repos.d/ruby.repo" <<EOF
 [RUBY_2_0_0_centos_6]
 name=RUBY centos Base \$releasever - \$basearch
 baseurl=ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/aredridel/CentOS_CentOS-\$releasever/
+enabled=0
 gpgcheck=0
 EOF
 echo "install ruby 2.0"
-yum -y install ruby ruby-devel ruby-libs rubygem
-rm -f /etc/yum.repos.d/ruby.repo
+yum --disablerepo=\* --enablerepo=RUBY_2_0_0_centos_6 -y install ruby ruby-devel ruby-libs rubygem
 rm -f /usr/local/bin/ruby
 ln -s /usr/bin/ruby /usr/local/bin/ruby
 rm -f /usr/local/bin/gem
