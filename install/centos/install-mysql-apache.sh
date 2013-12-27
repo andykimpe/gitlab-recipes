@@ -48,6 +48,7 @@ chmod -R 770 /var/spool/vacation
 chown -R vacation:vacation /var/spool/vacation
 useradd -r -u 101 -g mail -d /var/mail -s /sbin/nologin -c "Virtual mailbox" vmail
 service postfix start
+service postfix restart
 chkconfig postfix on
 yum -y install postgresql-server postgresql-devel mysql mysql-server
 echo "install ruby repo"
@@ -85,7 +86,8 @@ su git -c "cd /home/git/ && git clone https://github.com/gitlabhq/gitlab-shell.g
 su git -c "cd /home/git/gitlab-shell && git checkout v1.8.0 && cp config.yml.example config.yml"
 su git -c "sed -i 's|gitlab_url: \"http://localhost/\"|gitlab_url: \"http://localhost:8080/\"|' /home/git/gitlab-shell/config.yml"
 su git -c "/home/git/gitlab-shell/bin/install"
-yum install -y mysql-server mysql-devel
+service mysqld start
+service myqld restart
 chkconfig mysqld on
 mysqladmin -u root password "$password"
 mysql -u root -p$password -e "CREATE USER 'gitlab'@'localhost' IDENTIFIED BY '$gitlabpassword'";
