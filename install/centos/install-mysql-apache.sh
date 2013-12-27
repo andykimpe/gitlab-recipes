@@ -125,7 +125,7 @@ su git -c "chmod o-rwx /home/git/gitlab/config/database.yml"
 gem install charlock_holmes --version '0.6.9.4'
 gem install json -v '1.7.7'
 gem install pg -v '0.15.1'
-su git -c "cd /home/git/gitlab/ && bundle install --deployment --without development test postgres puma aws"
+su git -c "cd /home/git/gitlab/ && bundle install --deployment --without development test mysql puma aws"
 su git -c "cd /home/git/gitlab/ && bundle exec rake gitlab:setup RAILS_ENV=production"
 wget -O /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init/sysvinit/centos/gitlab-unicorn
 chmod +x /etc/init.d/gitlab
