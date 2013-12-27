@@ -17,7 +17,6 @@ fi
 echo -e "Enter subdomain for gitlab"
 echo -e "eg : gitlab.yourdomain"
 read -e -p "Enter subdomain for gitlab : " subdomain
-#read -e -p "Enter principal domain of your server : " domain
 read -e -p "Enter email address for send log file : " emaillog
 read -e -p "Enter email address for support : " emailsupport
 read -e -p "Enter principal email address for gitlab : " emailgitlab
