@@ -75,7 +75,7 @@ cd ruby-2.0.0-p353
 ./configure --prefix=/usr/local/
 sudo make
 echo "checkinstall ruby please validate default option"
-sudo checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldoc=yes --deldesc=yes -R make install
+sudo checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldesc=yes -R make install
 cd
 sudo rm -rf /tmp/checkinstall
 sudo rm -rf /tmp/ruby
