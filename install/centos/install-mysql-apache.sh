@@ -52,11 +52,12 @@ service mysqld restart > /dev/null 2>&1
 chkconfig mysqld on > /dev/null 2>&1
 password=`passwordgen`
 mysqladmin -u root password "$password" > /dev/null 2>&1
-until mysql -u root -p$password  -e ";" ; do
-read -s -p "Password: " password
+until mysql -u root -p$password  -e ";" > /dev/null 2>&1 ; do
+read -s -p "Enter Your mysql root Password: " password
 done
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 setenforce 0
+exit
 chkconfig sendmail off
 service sendmail stop
 yum -y remove bind-chroot
