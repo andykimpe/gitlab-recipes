@@ -79,7 +79,7 @@ cd
 sudo rm -rf /tmp/checkinstall
 sudo rm -rf /tmp/ruby
 echo "install ruby"
-sudo yum -y install ~/rpmbuild/RPMS/$(uname -m)/ruby-2.0.0-p353-1.$(uname -m).rpm
+sudo yum -y install ~/rpmbuild/RPMS/$(uname -m)/*.rpm
 sudo gem install bundler --no-ri --no-rdoc
 sudo adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
 sudo echo $emaillog > /root/.forward
