@@ -87,7 +87,7 @@ su git -c "cd /home/git/gitlab-shell && git checkout v1.8.0 && cp config.yml.exa
 su git -c "sed -i 's|gitlab_url: \"http://localhost/\"|gitlab_url: \"http://localhost:8080/\"|' /home/git/gitlab-shell/config.yml"
 su git -c "/home/git/gitlab-shell/bin/install"
 service mysqld start
-service myqld restart
+service mysqld restart
 chkconfig mysqld on
 mysqladmin -u root password "$password"
 mysql -u root -p$password -e "CREATE USER 'gitlab'@'localhost' IDENTIFIED BY '$gitlabpassword'";
