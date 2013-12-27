@@ -120,11 +120,11 @@ git config --global user.name "GitLab"
 git config --global user.email "$emailgitlab"
 git config --global core.autocrlf input
 su git -c "cp /home/git/gitlab/config/database.yml.mysql /home/git/gitlab/config/database.yml"
-su git -c "sed -i 's|  password: \"secure password\"|  password:|g' /home/git/gitlab/config/database.yml"
-su git -c "sed -i 's|  password:|  password: \"$gitlabpassword\"|g' /home/git/gitlab/config/database.yml"
-su git -c "sed -i 's|  username: root|  username: gitlab|g' /home/git/gitlab/config/database.yml"
+su git -c "sed -i 's|  password: \"secure password\"|  password: \"$password\"|g' /home/git/gitlab/config/database.yml"
 su git -c "chmod o-rwx /home/git/gitlab/config/database.yml"
 gem install charlock_holmes --version '0.6.9.4'
+gem install json -v '1.7.7'
+gem install pg -v '0.15.1'
 su git -c "cd /home/git/gitlab/ && bundle install --deployment --without development test postgres puma aws"
 su git -c "cd /home/git/gitlab/ && bundle exec rake gitlab:setup RAILS_ENV=production"
 wget -O /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init/sysvinit/centos/gitlab-unicorn
@@ -137,8 +137,8 @@ su git -c "cd gitlab/ && bundle exec rake gitlab:check RAILS_ENV=production"
 yum -y install httpd mod_ssl
 chkconfig httpd on
 wget -O /etc/httpd/conf.d/gitlab.conf https://raw.github.com/gitlabhq/gitlab-recipes/master/web-server/apache/gitlab.conf
-sed -i 's|  ServerName gitlab.example.com|  ServerName $domain|g' /etc/httpd/conf.d/gitlab.conf
-sed -i 's|    ProxyPassReverse http://gitlab.example.com/|    ProxyPassReverse http://$domain/|g' /etc/httpd/conf.d/gitlab.conf
+sed -i 's|  ServerName gitlab.example.com|  ServerName $subdomain|g' /etc/httpd/conf.d/gitlab.conf
+sed -i 's|    ProxyPassReverse http://gitlab.example.com/|    ProxyPassReverse http://$subdomain/|g' /etc/httpd/conf.d/gitlab.conf
 mkdir "/etc/httpd/conf.d.save"
 cp "/etc/httpd/conf.d/ssl.conf" "/etc/httpd/conf.d.save"
 cat > /etc/httpd/conf.d/ssl.conf <<EOF
@@ -153,11 +153,10 @@ cat > /etc/httpd/conf.d/ssl.conf <<EOF
 EOF
 mkdir -p /var/log/httpd/logs/
 service httpd restart
-lokkit -s http -s https -s ssh
 service iptables save
-service iptables restart
-echo "install fichier"
-echo "url for gitlab http://$domain" &>/dev/tty
+service iptables stop
+echo "install file"
+echo "url for gitlab http://$subdomain" &>/dev/tty
 echo "user (email) admin@local.host" &>/dev/tty
 echo "password 5iveL!fe" &>/dev/tty
 echo "mysql user gitlab" &>/dev/tty
