@@ -452,6 +452,12 @@ Make config/database.yml readable to git only
     # Bundler::GemNotFound: Could not find json-1.7.7.gem for installation
     # An error occurred while installing json (1.7.7), and Bundler cannot continue.
     #  Make sure that `gem install json -v '1.7.7'` succeeds before bundling.
+    gem install pg -v '0.15.1'
+    # reason bundle install --deployment --without development test mysql puma aws
+    # Gem files will remain installed in /home/git/gitlab/vendor/bundle/ruby/2.0.0/gems/pg-0.15.1 for      inspection.
+    # Results logged to /home/git/gitlab/vendor/bundle/ruby/2.0.0/gems/pg-0.15.1/ext/gem_make.out
+    # An error occurred while installing pg (0.15.1), and Bundler cannot continue.
+    # Make sure that `gem install pg -v '0.15.1'` succeeds before bundling.
     exit
 
 For MySQL (note, the option says "without ... postgres"):
