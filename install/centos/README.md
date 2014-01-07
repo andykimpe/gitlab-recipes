@@ -104,7 +104,7 @@ Create /etc/yum.repos.d/PUIAS_6_computational.repo and add the following lines:
 
 Next download and install the gpg key.
 
-    rpm --import http://springdale.math.ias.edu/data/puias/6/$(uname-m)/os/RPM-GPG-KEY-puias
+    rpm --import http://springdale.math.ias.edu/data/puias/6/$(uname -m)/os/RPM-GPG-KEY-puias
 
 Verify that the key got installed successfully:
 
@@ -474,6 +474,7 @@ Make config/database.yml readable to git only
     gem install json -v '1.7.7'
     gem install pg -v '0.15.1'
     gem install rdoc-data
+    gem install haml-contrib
     exit
 
 For MySQL (note, the option says "without ... postgres"):
