@@ -185,7 +185,6 @@ install checkinstall for auto create rpm for ruby
          cd checkinstall
          make
          make install
-         rm -rf ~/rpmbuild/
          mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
          cd
          rm -rf /tmp/checkinstall
@@ -200,13 +199,7 @@ Download and compile it:
     cd ruby-2.0.0-p353
     ./configure --prefix=/usr/local/
     make
-    checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --default --deldesc=yes -R make install
-    
-    and validate default option
-    
-    install ruby
-    
-    yum -y install ~/rpmbuild/RPMS/$(uname -m)/*.rpm
+    checkinstall --pkgname=ruby --pkgversion=2.0.0.p353 -y --install=yes --deldesc=yes -R make install
     
     ruby uninstall
     
